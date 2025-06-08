@@ -1,6 +1,29 @@
 {
-  "name": "jwt",
-  "version": "0.1.0",
+  "name": "jwt-tool",
+  "version": "1.0.0",
+  "description": "Professional JWT (JSON Web Token) toolkit for developers. Decode, generate, verify JWT tokens with support for all algorithms.",
+  "author": {
+    "name": "Deepak Jangra",
+    "email": "hey@deepakjangra.com",
+    "url": "https://x.com/heydeepakjangra"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heydeepakjangra/jwt.git"
+  },
+  "homepage": "https://jwt.deepakjangra.com",
+  "keywords": [
+    "jwt",
+    "json-web-token",
+    "decoder",
+    "generator",
+    "verifier",
+    "crypto",
+    "developer-tools",
+    "nextjs",
+    "typescript"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
