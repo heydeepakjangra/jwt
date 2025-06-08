@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Copy, RefreshCw, Save, Eye, EyeOff, Check } from 'lucide-react';
+import { Copy, RefreshCw, Save, Eye, EyeOff, Check, Key } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -153,30 +153,31 @@ export function JWTGenerator() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Algorithm Selection */}
-      <div className="space-y-3">
-        <Label htmlFor="algorithm">Algorithm</Label>
-        <Select value={algorithm} onValueChange={(value) => setAlgorithm(value as JWTAlgorithm)}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Select algorithm" />
-          </SelectTrigger>
-          <SelectContent>
-            {algorithms.map((alg) => (
-              <SelectItem key={alg} value={alg}>
-                <div className="flex items-center">
-                  {alg}
-                  <Badge variant="secondary" className="ml-2 text-xs">
-                    {alg.startsWith('HS') ? 'HMAC' : 'Asymmetric'}
-                  </Badge>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      {/* Input Column */}
+      <div className="xl:col-span-1 space-y-6">
+        {/* Algorithm Selection */}
+        <div className="space-y-3">
+          <Label htmlFor="algorithm">Algorithm</Label>
+          <Select value={algorithm} onValueChange={(value) => setAlgorithm(value as JWTAlgorithm)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select algorithm" />
+            </SelectTrigger>
+            <SelectContent>
+              {algorithms.map((alg) => (
+                <SelectItem key={alg} value={alg}>
+                  <div className="flex items-center">
+                    {alg}
+                    <Badge variant="secondary" className="ml-2 text-xs">
+                      {alg.startsWith('HS') ? 'HMAC' : 'Asymmetric'}
+                    </Badge>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Header */}
         <div className="space-y-3">
           <Label htmlFor="header">Header</Label>
@@ -185,7 +186,7 @@ export function JWTGenerator() {
             value={header}
             onChange={(e) => setHeader(e.target.value)}
             placeholder="JWT Header (JSON)"
-            className="font-mono text-sm min-h-[180px]"
+            className="font-mono text-sm min-h-[120px] xl:min-h-[140px]"
           />
         </div>
 
@@ -206,11 +207,11 @@ export function JWTGenerator() {
             value={payload}
             onChange={(e) => setPayload(e.target.value)}
             placeholder="JWT Payload (JSON)"
-            className="font-mono text-sm min-h-[180px]"
+            className="font-mono text-sm min-h-[120px] xl:min-h-[140px]"
           />
           
           {/* Quick claim buttons */}
-          <div className="flex flex-wrap gap-2 sm:gap-3">
+          <div className="flex flex-wrap gap-2">
             <Button
               size="sm"
               variant="outline"
@@ -234,109 +235,125 @@ export function JWTGenerator() {
             </Button>
           </div>
         </div>
-      </div>
 
-      {/* Secret/Key */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Label htmlFor="secret">
-            {isAsymmetric ? 'Private Key' : 'Secret'}
-          </Label>
-          <div className="flex items-center space-x-2">
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={handleGenerateSecret}
-              disabled={isAsymmetric}
-            >
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Generate
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => setShowSecret(!showSecret)}
-            >
-              {showSecret ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            </Button>
-          </div>
-        </div>
-        <Input
-          id="secret"
-          type={showSecret ? 'text' : 'password'}
-          value={secret}
-          onChange={(e) => setSecret(e.target.value)}
-          placeholder={isAsymmetric ? 'PEM Private Key or leave empty to generate' : 'Secret key'}
-          className="font-mono text-sm"
-        />
-      </div>
-
-      {/* Generate Button */}
-      <Button
-        onClick={handleGenerate}
-        disabled={isLoading}
-        className="w-full"
-        size="lg"
-      >
-        {isLoading ? 'Generating...' : 'Generate JWT'}
-      </Button>
-
-      {/* Error Display */}
-      {error && (
-        <Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950">
-          <CardContent className="pt-4">
-            <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Generated Token */}
-      {generatedToken && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Generated JWT</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="relative">
-              <Textarea
-                value={generatedToken}
-                readOnly
-                className="font-mono text-sm min-h-[120px] pr-12"
-              />
+        {/* Secret/Key */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="secret">
+              {isAsymmetric ? 'Private Key' : 'Secret'}
+            </Label>
+            <div className="flex items-center space-x-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleGenerateSecret}
+                disabled={isAsymmetric}
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Generate
+              </Button>
               <Button
                 size="sm"
                 variant="ghost"
-                className="absolute top-2 right-2"
-                onClick={handleCopyToken}
+                onClick={() => setShowSecret(!showSecret)}
               >
-                {isCopied('jwt-token') ? (
-                  <Check className="w-4 h-4 text-green-600" />
-                ) : (
-                  <Copy className="w-4 h-4" />
-                )}
+                {showSecret ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </Button>
             </div>
-            
-            {/* Save to Vault */}
-            <div className="flex items-center space-x-2">
-              <Input
-                placeholder="Token name (optional)"
-                value={tokenName}
-                onChange={(e) => setTokenName(e.target.value)}
-                className="flex-1"
-              />
-              <Button
-                onClick={handleSaveToken}
-                disabled={!tokenName}
-                variant="outline"
-              >
-                <Save className="w-4 h-4 mr-2" />
-                Save to Vault
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+          </div>
+          <Input
+            id="secret"
+            type={showSecret ? 'text' : 'password'}
+            value={secret}
+            onChange={(e) => setSecret(e.target.value)}
+            placeholder={isAsymmetric ? 'PEM Private Key or leave empty to generate' : 'Secret key'}
+            className="font-mono text-sm"
+          />
+        </div>
+
+        {/* Generate Button */}
+        <Button
+          onClick={handleGenerate}
+          disabled={isLoading}
+          className="w-full"
+          size="lg"
+        >
+          {isLoading ? 'Generating...' : 'Generate JWT'}
+        </Button>
+      </div>
+
+      {/* Results Column */}
+      <div className="xl:col-span-2 space-y-6">
+        {/* Error Display */}
+        {error && (
+          <Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950">
+            <CardContent className="pt-4">
+              <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Generated Token */}
+        {generatedToken && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Generated JWT</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="relative">
+                <Textarea
+                  value={generatedToken}
+                  readOnly
+                  className="font-mono text-sm min-h-[120px] xl:min-h-[180px] pr-12"
+                />
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="absolute top-2 right-2"
+                  onClick={handleCopyToken}
+                >
+                  {isCopied('jwt-token') ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
+                </Button>
+              </div>
+              
+              {/* Save to Vault */}
+              <div className="flex items-center space-x-2">
+                <Input
+                  placeholder="Token name (optional)"
+                  value={tokenName}
+                  onChange={(e) => setTokenName(e.target.value)}
+                  className="flex-1"
+                />
+                <Button
+                  onClick={handleSaveToken}
+                  disabled={!tokenName}
+                  variant="outline"
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  Save to Vault
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Placeholder when no token generated */}
+        {!generatedToken && !error && (
+          <Card className="border-dashed">
+            <CardContent className="pt-6 text-center text-muted-foreground">
+              <div className="space-y-2">
+                <Key className="w-12 h-12 mx-auto opacity-50" />
+                <p>Generated JWT will appear here</p>
+                <p className="text-sm">Fill in the form and click "Generate JWT" to get started.</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 } 
