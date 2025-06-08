@@ -348,7 +348,7 @@ export function JWTGenerator() {
               <div className="space-y-2">
                 <Key className="w-12 h-12 mx-auto opacity-50" />
                 <p>Generated JWT will appear here</p>
-                <p className="text-sm">Fill in the form and click "Generate JWT" to get started.</p>
+                <p className="text-sm">Fill in the form and click &quot;Generate JWT&quot; to get started.</p>
               </div>
             </CardContent>
           </Card>
