@@ -8,12 +8,13 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Key, Download, Copy, RefreshCw, Trash2, Check } from 'lucide-react';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { toast } from 'sonner';
 import { 
   generateKeyPair, 
@@ -143,23 +144,23 @@ export function KeyManager() {
           {/* Algorithm Selection */}
           <div className="space-y-3">
             <Label>Algorithm</Label>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-[200px] justify-between">
-                  {selectedAlgorithm}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
+            <Select value={selectedAlgorithm} onValueChange={(value) => setSelectedAlgorithm(value as JWTAlgorithm)}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select algorithm" />
+              </SelectTrigger>
+              <SelectContent>
                 {algorithms.map((alg) => (
-                  <DropdownMenuItem key={alg} onClick={() => setSelectedAlgorithm(alg)}>
-                    {alg}
-                    <Badge variant="secondary" className="ml-2 text-xs">
-                      {alg.startsWith('HS') ? 'HMAC' : 'Asymmetric'}
-                    </Badge>
-                  </DropdownMenuItem>
+                  <SelectItem key={alg} value={alg}>
+                    <div className="flex items-center">
+                      {alg}
+                      <Badge variant="secondary" className="ml-2 text-xs">
+                        {alg.startsWith('HS') ? 'HMAC' : 'Asymmetric'}
+                      </Badge>
+                    </div>
+                  </SelectItem>
                 ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </SelectContent>
+            </Select>
           </div>
 
           <Button
@@ -307,7 +308,7 @@ export function KeyManager() {
                 <div key={keyInfo.id} className="flex items-center justify-between p-3 border rounded">
                   <div className="space-y-1">
                     <div className="font-medium">{keyInfo.name}</div>
-                    <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <Badge variant="outline">{keyInfo.algorithm}</Badge>
                       <Badge variant="secondary">{keyInfo.type}</Badge>
                       <span>Created: {keyInfo.created.toLocaleDateString()}</span>

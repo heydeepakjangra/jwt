@@ -68,7 +68,7 @@ export function JWTDecoder() {
       return (
         <div className="space-y-1">
           <div className="font-mono text-sm">{value}</div>
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+                      <div className="text-xs text-muted-foreground">
             {formatTimestamp(value)}
           </div>
         </div>
@@ -91,7 +91,7 @@ export function JWTDecoder() {
     // Handle objects
     if (typeof value === 'object' && value !== null) {
       return (
-        <pre className="text-xs font-mono bg-slate-100 dark:bg-slate-800 p-2 rounded">
+                        <pre className="text-xs font-mono bg-muted/50 p-2 rounded">
           {JSON.stringify(value, null, 2)}
         </pre>
       );
@@ -184,7 +184,7 @@ export function JWTDecoder() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 gap-3 sm:gap-4">
                     {Object.entries(decodedHeader).map(([key, value]) => (
-                      <div key={key} className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 bg-slate-50 dark:bg-slate-800 rounded space-y-1 sm:space-y-0">
+                      <div key={key} className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 bg-muted/30 rounded space-y-1 sm:space-y-0">
                         <div className="font-medium">{key}</div>
                         <div className="text-left sm:text-right flex flex-wrap items-center gap-2">
                           <span className="font-mono text-sm">{String(value)}</span>

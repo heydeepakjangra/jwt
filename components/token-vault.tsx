@@ -7,6 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { 
   Archive, 
   Copy, 
@@ -16,7 +23,7 @@ import {
   Search, 
   Clock,
   AlertTriangle,
-  Check 
+  Check
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { StoredToken } from '@/lib/types';
@@ -199,7 +206,7 @@ export function TokenVault() {
             <div className="flex-1 space-y-2">
               <Label htmlFor="search">Search tokens</Label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
                   id="search"
                   placeholder="Search by name or algorithm..."
@@ -211,23 +218,22 @@ export function TokenVault() {
             </div>
             <div className="w-full sm:w-48 space-y-2">
               <Label htmlFor="tag-filter">Filter by tag</Label>
-              <select
-                id="tag-filter"
-                value={selectedTag}
-                onChange={(e) => setSelectedTag(e.target.value)}
-                className="w-full h-10 px-3 text-sm border border-input bg-background rounded-md"
-              >
-                <option value="">All tags</option>
-                {allTags.map(tag => (
-                  <option key={tag} value={tag}>{tag}</option>
-                ))}
-              </select>
+              <Select value={selectedTag || undefined} onValueChange={(value) => setSelectedTag(value || '')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="All tags" />
+                </SelectTrigger>
+                <SelectContent>
+                  {allTags.map(tag => (
+                    <SelectItem key={tag} value={tag}>{tag}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
           {/* Add Token Form */}
           {showAddToken && (
-            <div className="space-y-4 p-4 border rounded-lg bg-slate-50 dark:bg-slate-800">
+            <div className="space-y-4 p-4 border rounded-lg bg-muted/50">
               <h4 className="font-medium">Add New Token</h4>
               <div className="grid grid-cols-1 gap-4">
                 <div className="space-y-2">
@@ -276,7 +282,7 @@ export function TokenVault() {
       <div className="space-y-4">
         {filteredTokens.length === 0 ? (
           <Card>
-            <CardContent className="pt-6 text-center text-slate-500 dark:text-slate-400">
+            <CardContent className="pt-6 text-center text-muted-foreground">
               {tokens.length === 0 ? (
                 <div className="space-y-2">
                   <Archive className="w-12 h-12 mx-auto opacity-50" />
@@ -297,7 +303,7 @@ export function TokenVault() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                     <div className="space-y-1">
                       <CardTitle className="text-lg">{token.name}</CardTitle>
-                      <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <Badge variant="outline">{token.algorithm}</Badge>
                         <Badge 
                           variant={
@@ -358,7 +364,7 @@ export function TokenVault() {
 
                   {/* Expiry Details */}
                   {token.expires && (
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
+                    <div className="text-sm text-muted-foreground">
                       <Clock className="w-4 h-4 inline mr-1" />
                       Expires: {token.expires.toLocaleString()}
                     </div>

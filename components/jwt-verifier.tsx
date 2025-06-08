@@ -161,13 +161,13 @@ export function JWTVerifier() {
                     <h4 className="font-medium">Token Details</h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="text-slate-500 dark:text-slate-400">Algorithm:</span>
+                        <span className="text-muted-foreground">Algorithm:</span>
                         <Badge variant="outline" className="ml-2">
                           {result.header.alg}
                         </Badge>
                       </div>
                       <div>
-                        <span className="text-slate-500 dark:text-slate-400">Type:</span>
+                        <span className="text-muted-foreground">Type:</span>
                         <span className="ml-2 font-mono">{result.header.typ}</span>
                       </div>
                     </div>
@@ -200,11 +200,11 @@ export function JWTVerifier() {
                 {result.header && (
                   <div className="space-y-2">
                     <h4 className="font-medium">Decoded Information</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                    <p className="text-sm text-muted-foreground">
                       The token structure is valid but the signature verification failed.
                     </p>
                     <div className="text-sm">
-                      <span className="text-slate-500 dark:text-slate-400">Algorithm:</span>
+                      <span className="text-muted-foreground">Algorithm:</span>
                       <Badge variant="outline" className="ml-2">
                         {result.header.alg}
                       </Badge>
@@ -214,7 +214,7 @@ export function JWTVerifier() {
 
                 <div className="space-y-2">
                   <h4 className="font-medium text-sm">Common Issues</h4>
-                  <ul className="text-sm text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
                     <li>Wrong secret key or public key</li>
                     <li>Algorithm mismatch</li>
                     <li>Token has been modified</li>

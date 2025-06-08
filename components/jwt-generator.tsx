@@ -8,12 +8,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Copy, RefreshCw, Save, Eye, EyeOff, Check } from 'lucide-react';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { generateJWT, generateSecret, createTimeBasedPayload, generateKeyPair } from '@/lib/jwt';
@@ -156,23 +157,23 @@ export function JWTGenerator() {
       {/* Algorithm Selection */}
       <div className="space-y-3">
         <Label htmlFor="algorithm">Algorithm</Label>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-[200px] justify-between">
-              {algorithm}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
+        <Select value={algorithm} onValueChange={(value) => setAlgorithm(value as JWTAlgorithm)}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Select algorithm" />
+          </SelectTrigger>
+          <SelectContent>
             {algorithms.map((alg) => (
-              <DropdownMenuItem key={alg} onClick={() => setAlgorithm(alg)}>
-                {alg}
-                <Badge variant="secondary" className="ml-2 text-xs">
-                  {alg.startsWith('HS') ? 'HMAC' : 'Asymmetric'}
-                </Badge>
-              </DropdownMenuItem>
+              <SelectItem key={alg} value={alg}>
+                <div className="flex items-center">
+                  {alg}
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {alg.startsWith('HS') ? 'HMAC' : 'Asymmetric'}
+                  </Badge>
+                </div>
+              </SelectItem>
             ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
@@ -205,7 +206,7 @@ export function JWTGenerator() {
             value={payload}
             onChange={(e) => setPayload(e.target.value)}
             placeholder="JWT Payload (JSON)"
-            className="font-mono text-sm min-h-[120px]"
+            className="font-mono text-sm min-h-[180px]"
           />
           
           {/* Quick claim buttons */}
