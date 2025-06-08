@@ -145,7 +145,7 @@ export function KeyManager() {
           <div className="space-y-3">
             <Label>Algorithm</Label>
             <Select value={selectedAlgorithm} onValueChange={(value) => setSelectedAlgorithm(value as JWTAlgorithm)}>
-              <SelectTrigger className="w-[200px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select algorithm" />
               </SelectTrigger>
               <SelectContent>
