@@ -1,41 +1,100 @@
 {
   "name": "JWT Tool - Professional JWT Decoder, Generator & Verifier",
   "short_name": "JWT Tool",
-  "description": "Professional JWT toolkit for developers. Decode, generate, verify JWT tokens with support for all algorithms.",
+  "description": "Professional JWT toolkit for developers. Decode, generate, verify JWT tokens with support for all algorithms. 100% client-side and secure.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait-primary",
-  "categories": ["developer", "utilities", "productivity"],
-  "icons": [
-    {
-      "src": "/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
-    }
-  ],
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["developer", "tools", "security", "authentication"],
   "screenshots": [
     {
-      "src": "/screenshot-desktop.png",
-      "sizes": "1280x720",
+      "src": "/og-image.png",
+      "sizes": "1200x630",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "JWT Tool Desktop Interface"
+      "label": "JWT Tool Interface"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
     },
     {
-      "src": "/screenshot-mobile.png",
-      "sizes": "390x844",
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
-      "form_factor": "narrow",
-      "label": "JWT Tool Mobile Interface"
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Decode JWT",
+      "short_name": "Decode",
+      "description": "Decode and analyze JWT tokens",
+      "url": "/#decode",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Generate JWT",
+      "short_name": "Generate", 
+      "description": "Create new JWT tokens",
+      "url": "/#generate",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Verify JWT",
+      "short_name": "Verify",
+      "description": "Verify JWT token signatures",
+      "url": "/#verify",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 } 
